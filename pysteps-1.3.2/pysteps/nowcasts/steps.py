@@ -35,8 +35,9 @@ except ImportError:
 
 def forecast(
     R,
-    V,
+    Vs,
     n_timesteps,
+    V_time_space= 10,
     n_ens_members=24,
     n_cascade_levels=6,
     R_thr=None,
@@ -74,12 +75,14 @@ def forecast(
       Array of shape (ar_order+1,m,n) containing the input precipitation fields
       ordered by timestamp from oldest to newest. The time steps between the
       inputs are assumed to be regular.
-    V : array-like
-      Array of shape (2,m,n) containing the x- and y-components of the advection
+    Vs : array-like
+      Array of shape either (t,2,m,n) or (2,m,n) containing the x- and y-components of the advection
       field. The velocities are assumed to represent one time step between the
       inputs. All values are required to be finite.
     n_timesteps : int
       Number of time steps to forecast.
+    V_time_space: int
+      Temporal spacing of velocity field if adaptive wind field is activated
     n_ens_members : int, optional
       The number of ensemble members to generate.
     n_cascade_levels : int, optional
@@ -233,6 +236,7 @@ def forecast(
     measure_time : bool
       If set to True, measure, print and return the computation time.
 
+
     Returns
     -------
     out : ndarray
@@ -255,6 +259,15 @@ def forecast(
     :cite:`Seed2003`, :cite:`BPS2006`, :cite:`SPN2013`, :cite:`PCH2019b`
 
     """
+
+    if len(Vs.shape)==4:
+        assert len(Vs)==n_timesteps//V_time_space, 'Expected %d length in time, but got %d'%(n_timesteps%V_time_space, len(Vs))
+        adapt_vel= True
+        V= Vs[0]
+    else:
+        adapt_vel= False
+        V= Vs
+
     _check_inputs(R, V, ar_order)
 
     if extrap_kwargs is None:
@@ -304,6 +317,9 @@ def forecast(
             raise ValueError("vel_pert_method is set but timestep=None")
         if mask_method == "incremental":
             raise ValueError("mask_method='incremental' but timestep=None")
+
+
+ 
 
     print("Computing STEPS nowcast:")
     print("------------------------")
@@ -591,6 +607,12 @@ def forecast(
     for t in range(n_timesteps):
         print("Computing nowcast for time step %d... " % (t + 1), end="")
         sys.stdout.flush()
+        #overwrite wind field if adaptive wind field is activated
+        #modified by Allen, 2020
+        if t%V_time_space==0 and adapt_vel:
+            print("updating wind field vector for time step %d..."%(t+1), end="")
+            sys.stdout.flush()
+            V= Vs[t//V_time_space]
         if measure_time:
             starttime = time.time()
 

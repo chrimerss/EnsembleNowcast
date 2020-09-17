@@ -6,8 +6,8 @@ for fname in $files
 do
 	base_name=$(basename $fname)
 	## Get wind band 32/33 for U/V
-	gdal_translate -b 101 -r near $fname "$base_name.wind_h.tif"
-	gdal_translate -b 102 -r near $fname "$base_name.wind_v.tif"
+	gdal_translate -b 32 -r near $fname "$base_name.wind_h.tif"
+	gdal_translate -b 33 -r near $fname "$base_name.wind_v.tif"
 
 	## Get Precipitation field 63 in kg/(m^2 s) * 3600
 
