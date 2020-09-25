@@ -1,0 +1,25 @@
+<PAMDataset>
+  <PAMRasterBand band="1">
+    <Description>0[m] GPML="Specific altitude above mean sea level"</Description>
+    <Metadata>
+      <MDI key="GRIB_COMMENT">Radar Precipitation Rate [mm/hr]</MDI>
+      <MDI key="GRIB_DISCIPLINE">209</MDI>
+      <MDI key="GRIB_ELEMENT">PrecipRate</MDI>
+      <MDI key="GRIB_FORECAST_SECONDS">0 sec</MDI>
+      <MDI key="GRIB_IDS">CENTER=161(US-OAR) SUBCENTER=0 MASTER_TABLE=255 LOCAL_TABLE=1 SIGNF_REF_TIME=3(Observation_time) REF_TIME=2017-08-26T12:00:00Z PROD_STATUS=2(Research) TYPE=7(Processed_radar_observations)</MDI>
+      <MDI key="GRIB_PDS_PDTN">0</MDI>
+      <MDI key="GRIB_PDS_TEMPLATE_ASSEMBLED_VALUES">6 1 8 0 97 0 0 0 0 102 0 0 255 1 0</MDI>
+      <MDI key="GRIB_PDS_TEMPLATE_NUMBERS">6 1 8 0 97 0 0 0 0 0 0 0 0 102 0 0 0 0 0 255 1 0 0 0 0</MDI>
+      <MDI key="GRIB_REF_TIME">1503748800 sec UTC</MDI>
+      <MDI key="GRIB_SHORT_NAME">0-GPML</MDI>
+      <MDI key="GRIB_UNIT">[mm/hr]</MDI>
+      <MDI key="GRIB_VALID_TIME">1503748800 sec UTC</MDI>
+      <MDI key="STATISTICS_APPROXIMATE">YES</MDI>
+      <MDI key="STATISTICS_MAXIMUM">103.80000305176</MDI>
+      <MDI key="STATISTICS_MEAN">-0.99479833088546</MDI>
+      <MDI key="STATISTICS_MINIMUM">-3</MDI>
+      <MDI key="STATISTICS_STDDEV">1.8928694109523</MDI>
+      <MDI key="STATISTICS_VALID_PERCENT">100</MDI>
+    </Metadata>
+  </PAMRasterBand>
+</PAMDataset>
